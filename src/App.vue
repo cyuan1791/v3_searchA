@@ -9,7 +9,6 @@
 import { ref, onMounted } from "vue";
 
 let asoneSummary = JSON.parse(atob(window.asoneSummary));
-let asoneRatingSummary = JSON.parse(atob(window.asoneRatingSummary));
 let asoneLoc = window.asoneLoc;
 //console.log(asoneSummary);
 //let asoneType = ref(Object.keys(asoneSummary)[0]);
@@ -32,31 +31,6 @@ let asoneModuleTypeName = Object.entries(window.asoneModuleTypeName).sort(
     return a[1].localeCompare(b[1]);
   }
 );
-
-//console.log(asoneModuleTypeName);
-//console.log(asoneSummary);
-function getMyRating(page_path) {
-  //return "";
-  console.log(page_path);
-  if (page_path in asoneRatingSummary) {
-    let numberOfRatings = asoneRatingSummary[page_path][0];
-    let totalRatings = asoneRatingSummary[page_path][1];
-    let averageRating = totalRatings / numberOfRatings;
-    let fullStars = Math.floor(averageRating);
-    let halfStar = averageRating - fullStars >= 0.5 ? 1 : 0;
-    //let emptyStars = 5 - fullStars - halfStar;
-    let averageRatingText =
-      " " + averageRating.toFixed(2) + " (" + numberOfRatings + " ratings)";
-    averageRating = averageRatingText;
-    for (let i = 0; i < fullStars; i++) {
-      averageRating =
-        '<i class=" fas fa-star" style="color: #ffcc00;"></i>' + averageRating;
-    }
-    return averageRating;
-  } else {
-    return '<i class=" fas fa-star" style="color: #a0a0a0;"></i><i class=" fas fa-star" style="color: #a0a0a0;"></i><i class=" fas fa-star" style="color: #a0a0a0;"></i><i class=" fas fa-star" style="color: #a0a0a0;"></i><i class=" fas fa-star" style="color: #a0a0a0;"></i>  5.00 (0 ratings)';
-  }
-}
 
 //console.log(asoneModuleTypeName);
 onMounted(() => {
@@ -183,12 +157,6 @@ const selectType = (type) => {
               :href="`/default/${asoneLoc}/${item[1]}/#${item[2]}`"
               target="_blank"
             >
-              <span
-                v-html="
-                  getMyRating('/default/' + asoneLoc + '/' + item[1] + '/')
-                "
-                style="min-width: 210px; display: inline-block"
-              ></span>
               {{ item[1] }} - {{ item[4].slice(0, 50) }}
             </a>
           </div>
@@ -197,9 +165,3 @@ const selectType = (type) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-agray {
-  color: rgb(220, 206, 206);
-}
-</style>
