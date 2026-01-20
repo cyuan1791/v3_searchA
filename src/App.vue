@@ -28,8 +28,8 @@ let asoneModuleTypeNameObj = window.asoneModuleTypeName;
 let asoneModuleTypeName = Object.entries(window.asoneModuleTypeName).sort(
   (a, b) => {
     // Sort by the value (index 1) using localeCompare for strings
-    return a[1].localeCompare(b[1]);
-  }
+    return a[1][0].localeCompare(b[1][0]);
+  },
 );
 
 //console.log(asoneModuleTypeName);
@@ -104,21 +104,21 @@ const selectType = (type) => {
         >
           <span v-if="value[0] in asoneSummary">
             <a
-              v-if="value[1] == 'Shop'"
+              v-if="value[1][0] == 'Shop'"
               class="rounded border border-info bg-danger-subtle ps-1 text-decoration-underline"
               @click="selectType(value[0])"
               style="cursor: pointer"
-              >{{ value[1] }}/{{ asoneSummary[value[0]].length }} ,</a
+              >{{ value[1][0] }}/{{ asoneSummary[value[0]].length }} ,</a
             >
             <a
               v-else
               class="ps-1 text-decoration-underline"
               @click="selectType(value[0])"
               style="cursor: pointer"
-              >{{ value[1] }}/{{ asoneSummary[value[0]].length }} ,</a
+              >{{ value[1][0] }}/{{ asoneSummary[value[0]].length }} ,</a
             >
           </span>
-          <span v-else>{{ value[1] }}/0 ,</span>
+          <span v-else>{{ value[1][0] }}/0 ,</span>
         </span>
         <!--
         <span v-for="(value, key) in asoneSummary" :key="key">
